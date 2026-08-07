@@ -9,7 +9,7 @@
 
 ## Source
 - Mission PDF: VALID
-- Mission MD: DUPLICATE/VALID content
+- Mission MD: DUPLICATE/VALID content (requirements aligned; page-count metadata differs)
 - Evaluation: MISSING
 - Mode: MISSION-LED
 - Confidence: MEDIUM
@@ -18,7 +18,8 @@
 FastAPI app, session auth, protected chat UI, server-side AI adapter, bounded same-user context, SQLite persistence, user log UI/API, request-id traceability, timeout/error handling, input validation, secret/env management, tests, docs, Docker packaging.
 
 ## Test
-- Local automated harness: `6 passed`.
+- Local automated harness: `7 passed`.
+- Self-review found required INFO lifecycle events were not enabled by default; fixed and covered by a regression test.
 
 ## Must remain NEEDS-RUNTIME
 1. 실제 AI provider credential/model로 성공 응답 확인

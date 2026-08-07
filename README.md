@@ -71,7 +71,7 @@ uvicorn app.main:create_app --factory --reload
 pytest -q
 ```
 
-Workcell 로컬 자동검증: **6 passed**. 자동 테스트는 fake AI adapter로 기능을 검증한다. **실제 AI API 성공과 외부 URL은 자동 테스트만으로 PASS 처리하지 않는다.**
+Workcell 로컬 자동검증: **7 passed**. 자동 테스트는 fake AI adapter로 기능을 검증한다. **실제 AI API 성공과 외부 URL은 자동 테스트만으로 PASS 처리하지 않는다.**
 
 ## DB 확인
 

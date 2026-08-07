@@ -21,8 +21,8 @@
 ## 4. Source Inventory
 | Source Candidate | Type | State | Location | Notes |
 |---|---|---|---|---|
-| Mission | PDF | VALID | `b7-1-mission.pdf` + provided official attachment | 5 pages, functional requirements verified |
-| Mission | Markdown | DUPLICATE | `b7-1-mission.md` | Substantively matches PDF; page markers preserved |
+| Mission | PDF | VALID | `b7-1-mission.pdf` + provided official attachment | rendered PDF has 5 pages; functional requirements verified |
+| Mission | Markdown | DUPLICATE | `b7-1-mission.md` | requirements substantively match PDF; metadata says 6 pages |
 | Evaluation | PDF/MD | MISSING | repo root/docs/search + File Library search | no B7-1 evaluation source found |
 | Official operation | PDF | VALID/PARTIAL | 2026 orientation, Basic Term Project row | B7-1 Project A is required Term Project; Mission details remain governed by Mission PDF |
 
@@ -31,6 +31,7 @@
 - Source Gaps:
   - 공식 Evaluation/평가문항을 발견하지 못했다. Evaluation을 추정하지 않는다.
   - 팀 구성원 identity/실제 분업 증빙은 Source가 요구하지만 현재 Repository에 없다.
+  - Mission Markdown의 `6쪽` 메타데이터와 현재 렌더링된 PDF의 5페이지가 다르지만 확인된 요구사항 내용에는 충돌이 없다.
 
 ## 5. Mission Contract
 ### Goal
@@ -70,11 +71,11 @@ B7-2 board CRUD, multi-tenant admin console, RAG/vector DB, streaming tokens, OA
 | REQ-B7-1-003 | AI API is called server-side | Mission PDF | p.3 | `app/ai.py` | fake-adapter integration test; real key pending | NEEDS-RUNTIME |
 | REQ-B7-1-004 | Minimum context strategy | Mission PDF | p.3 | recent N successful same-user turns | context isolation test | TESTED |
 | REQ-B7-1-005 | Persist user/time/question/answer and user-based trace | Mission PDF | p.3 | `ChatLog`, `/logs`, `/api/me/chats` | pytest + SQL guide | TESTED |
-| REQ-B7-1-006 | Request/AI/DB success/failure logs | Mission PDF | pp.3-4 | structured log messages + request_id | code review + runtime capture pending | NEEDS-RUNTIME |
+| REQ-B7-1-006 | Request/AI/DB success/failure logs | Mission PDF | pp.3-4 | structured log messages + request_id | logger-enabled regression test; runtime capture pending | NEEDS-RUNTIME |
 | REQ-B7-1-007 | Timeout/failure does not terminate service | Mission PDF | pp.3-4 | typed AI errors + saved error chat | timeout test | TESTED |
 | REQ-B7-1-008 | Input validation | Mission PDF | p.3 | blank/length limit | validation test | TESTED |
 | REQ-B7-1-009 | External URL at evaluation time | Mission PDF | pp.1,3 | Docker-ready | external browser evidence | NEEDS-RUNTIME |
-| REQ-B7-1-010 | Branch/feature/PR history, each member 10+ commits | Mission PDF | p.4 | mission branch/PR prepared | GitHub team evidence | NEEDS-RUNTIME |
+| REQ-B7-1-010 | Branch/feature/PR history, each member 10+ commits | Mission PDF | p.4 | draft Mission PR prepared | GitHub team evidence | NEEDS-RUNTIME |
 | REQ-B7-1-011 | README docs incl team/secret/env/deploy/API/DB | Mission PDF | pp.2,4 | README + docs | doc/code review | IMPLEMENTED |
 
 ## 7. Evaluation Mapping
@@ -115,7 +116,7 @@ Source/Evaluation Discovery
 ## 11. Agent Routing
 - Orchestrator/Integrator: ChatGPT
 - Primary Builder: ChatGPT (current tool environment)
-- Independent Reviewer: selected after build
+- Independent Reviewer: pending until a distinct reviewer is available; no fake independent audit is recorded.
 - Specialist agents: OFF unless BLOCKER/MAJOR ambiguity appears
 - Runtime Authority: Human
 
@@ -124,7 +125,7 @@ Source/Evaluation Discovery
 - Related Missions: B5/B6 concepts.
 - Actual prerequisite required before G2: `NONE` — B7-1 PDF requires integrated capabilities but does not require importing prior repositories/artifacts.
 - Control Tower Drift: NONE against frozen baseline.
-- Source Drift: repo PDF and MD substantively aligned.
+- Source Drift: requirements are substantively aligned; Markdown metadata says the PDF is 6 pages while the currently rendered PDF has 5 pages. This does not change any confirmed requirement.
 - Action: CONTINUE.
 
 ## 13. Test Plan
@@ -136,10 +137,11 @@ Source/Evaluation Discovery
 | context bound/isolation | 004 | pytest | passed | TESTED |
 | timeout error persistence | 007 | pytest | passed | TESTED |
 | unauthenticated log API | 005 | pytest | passed | TESTED |
+| required INFO lifecycle logs enabled | 006 | pytest | passed | TESTED |
 | real AI API | 003 | actual credential | not run | NEEDS-RUNTIME |
 | external URL E2E | 009 | external browser | not run | NEEDS-RUNTIME |
 
-Local harness result: `6 passed`.
+Local harness result: `7 passed`.
 
 ## 14. Runtime Plan
 - Real AI provider key/model call: Human secret required.
@@ -155,20 +157,26 @@ Local harness result: `6 passed`.
 - External URL and `/health`.
 - Team PR and commit links.
 
-## 16. Completion Gates
+## 16. Review Record
+- Self-review finding `MAJOR`: required INFO lifecycle log messages existed but the named logger inherited WARNING level, so INFO events could be suppressed in some runtimes.
+- Action: fixed in commit `8cff561e8637d8a6e77e3c13d982504ad14a3b75` by enabling the application logger and added a regression test.
+- Self-review after fix: BLOCKER=0, MAJOR=0.
+- Independent reviewer: pending; G4 remains TODO until a distinct review is actually completed.
+
+## 17. Completion Gates
 | Gate | Exit Condition | Status |
 |---|---|---|
 | G1 SOURCE | Source state/mode/gap/provenance fixed | PASS |
 | G2 BUILD | required implementation exists | IMPLEMENTED |
 | G3 TEST | automated tests pass | TESTED |
-| G4 REVIEW | BLOCKER=0, MAJOR=0 | TODO |
+| G4 REVIEW | BLOCKER=0, MAJOR=0 under independent review | TODO |
 | G5 RUNTIME | actual AI/browser/cloud checks | NEEDS-RUNTIME |
 | G6 EVIDENCE | required external/team evidence | NEEDS-RUNTIME |
 | G7 LEARN | beginner learning material | IMPLEMENTED |
 | G8 MERGE | PR/merge after gates | TODO |
 
-## 17. STOP Rule
+## 18. STOP Rule
 Stop mission-completion work only after confirmed Mission requirements, any later Evaluation mapping, BLOCKER=0, MAJOR=0, tests, runtime, evidence, and G8 merge are complete. Runtime/team gaps must not be falsely marked PASS.
 
-## 18. Handoff Contract
+## 19. Handoff Contract
 At final completion update `HANDOFF.md` and `mission-result.yaml`. Control Tower remains unchanged by this Workcell.
