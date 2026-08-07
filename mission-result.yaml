@@ -1,0 +1,33 @@
+schema_version: 1
+mission: B7-1
+repository: MetaStudy999/codyssey-basic-b7-1-web-ai-chatbot
+control_tower_baseline_sha: 0d1581b3e82366988f57e1d76da311c028b8e15e
+repository_baseline_sha: 16d902072afc212b24fa8b68a68a89204d099cab
+work_branch: mission/b7-1
+source:
+  mission_pdf: VALID
+  mission_markdown: DUPLICATE
+  evaluation: MISSING
+  mode: MISSION-LED
+  confidence: MEDIUM
+status: IMPLEMENTED
+blocker_count: null
+major_count: null
+gates:
+  G1_SOURCE: PASS
+  G2_BUILD: IMPLEMENTED
+  G3_TEST: TESTED
+  G4_REVIEW: TODO
+  G5_RUNTIME: NEEDS-RUNTIME
+  G6_EVIDENCE: NEEDS-RUNTIME
+  G7_LEARN: IMPLEMENTED
+  G8_MERGE: TODO
+runtime_pending:
+  - real AI API success with server-side secret
+  - external URL browser end-to-end flow
+  - request/AI/DB server log evidence
+  - team roles, PR history, and 10+ meaningful commits per member
+  - evaluation remap if an official Evaluation source appears
+external_url: null
+final_pr: null
+final_sha: null

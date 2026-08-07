@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}홈 · Codyssey AI Chatbot{% endblock %}
+{% block content %}
+<section class="hero">
+  <p class="eyebrow">FastAPI · SQLite · Server-side AI API</p>
+  <h1>로그인 사용자용 웹 AI 챗봇</h1>
+  <p>질문을 서버가 받아 AI API를 호출하고, 응답과 요청 추적 정보를 사용자별 DB 로그로 저장합니다.</p>
+  <div class="actions">
+    {% if logged_in %}<a class="button" href="/chat">챗봇 열기</a>{% else %}<a class="button" href="/signup">시작하기</a><a class="button secondary" href="/login">로그인</a>{% endif %}
+  </div>
+</section>
+{% endblock %}
