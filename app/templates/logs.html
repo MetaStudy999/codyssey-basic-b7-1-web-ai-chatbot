@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}내 로그 · Codyssey AI Chatbot{% endblock %}
+{% block content %}
+<section>
+  <p class="eyebrow">사용자 기준 추적</p>
+  <h1>내 대화 로그</h1>
+  <p><code>GET /api/me/chats</code>에서도 같은 사용자 범위의 로그를 JSON으로 확인할 수 있습니다.</p>
+  <div class="log-list">
+    {% for chat in chats %}
+      <article class="panel">
+        <div class="meta">{{ chat.created_at }} · {{ chat.status }} · request_id={{ chat.request_id }}</div>
+        <p><strong>Q.</strong> {{ chat.question }}</p>
+        <p><strong>A.</strong> {{ chat.answer }}</p>
+        {% if chat.error_code %}<p class="error">{{ chat.error_code }}</p>{% endif %}
+      </article>
+    {% else %}
+      <p class="empty">저장된 로그가 없습니다.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
