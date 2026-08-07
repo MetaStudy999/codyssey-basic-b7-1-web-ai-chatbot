@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 from pathlib import Path
 
 from fastapi.testclient import TestClient
@@ -133,3 +134,19 @@ def test_api_logs_require_authentication(tmp_path):
     with make_client(tmp_path) as client:
         response = client.get("/api/me/chats")
         assert response.status_code == 401
+
+
+def test_required_chat_lifecycle_info_logs_are_enabled(tmp_path, caplog):
+    ai = RecordingAI("logged response")
+    with make_client(tmp_path, ai) as client:
+        chat_logger = logging.getLogger("codyssey.chat")
+        assert chat_logger.isEnabledFor(logging.INFO)
+        caplog.set_level(logging.INFO, logger="codyssey.chat")
+        signup(client, "loggeruser")
+        client.post("/chat", data={"question": "로그 확인"})
+
+        messages = [record.getMessage() for record in caplog.records if record.name == "codyssey.chat"]
+        assert any("request_received" in message for message in messages)
+        assert any("ai_call_start" in message for message in messages)
+        assert any("ai_call_success" in message for message in messages)
+        assert any("db_save_success" in message for message in messages)

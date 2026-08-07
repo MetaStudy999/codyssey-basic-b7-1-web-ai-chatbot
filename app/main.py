@@ -19,6 +19,8 @@ BASE_DIR = Path(__file__).resolve().parent
 
 
 def create_app(settings: Settings | None = None, ai_client: AIClient | None = None) -> FastAPI:
+    configure_logging()
+    logging.getLogger("codyssey.chat").setLevel(logging.INFO)
     settings = settings or Settings.from_env()
     engine = make_engine(settings.database_url)
     session_factory = make_session_factory(engine)
