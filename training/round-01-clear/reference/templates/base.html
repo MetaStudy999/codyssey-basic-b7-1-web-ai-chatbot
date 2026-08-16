@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}B7-1 Chatbot{% endblock %}</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="site-header">
+  <nav class="container nav">
+    <a href="/">B7-1 Chatbot</a>
+    <div class="nav-links">
+      {% if user %}
+        <a href="/chat">Chat</a>
+        <a href="/logs">My Logs</a>
+        <span>{{ user.username }}</span>
+        <form action="/logout" method="post"><button type="submit">Logout</button></form>
+      {% else %}
+        <a href="/login">Login</a>
+        <a href="/signup">Sign Up</a>
+      {% endif %}
+    </div>
+  </nav>
+</header>
+<main class="container">
+  {% block content %}{% endblock %}
+</main>
+</body>
+</html>
