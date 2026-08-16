@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}My Logs · B7-1 Chatbot{% endblock %}
+{% block content %}
+<h1>내 대화 로그</h1>
+{% if rows %}
+  {% for row in rows %}
+    <article class="log-entry">
+      <p><strong>{{ row['created_at'] }}</strong></p>
+      <p><strong>Q:</strong> {{ row['question'] }}</p>
+      <p><strong>A:</strong> {{ row['answer'] }}</p>
+    </article>
+  {% endfor %}
+{% else %}
+  <p>저장된 대화가 없습니다.</p>
+{% endif %}
+{% endblock %}
