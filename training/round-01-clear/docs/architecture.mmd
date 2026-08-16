@@ -1,0 +1,17 @@
+flowchart LR
+    Browser[User Browser]
+    FastAPI[FastAPI + Jinja2]
+    Auth[Auth / Session]
+    DB[(SQLite DB)]
+    AI[External AI API]
+    Logs[Application Logs]
+
+    Browser -->|signup/login/chat| FastAPI
+    FastAPI --> Auth
+    Auth --> DB
+    FastAPI -->|recent user context| DB
+    FastAPI -->|server-side API call| AI
+    AI -->|AI answer| FastAPI
+    FastAPI -->|save Q/A| DB
+    FastAPI --> Logs
+    FastAPI -->|HTML response| Browser
