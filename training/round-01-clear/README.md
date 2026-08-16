@@ -10,10 +10,13 @@
 
 B7-1은 Git 협업·Web·DB·Deploy·AI API가 하나의 Term Project에서 통합되는 지점입니다. 권장 선행 미션을 모두 CLEAR해야만 시작하는 구조는 아니며, 각 영역의 핵심 개념을 이미 이해하고 있다면 바로 B7-1을 시작하고 부족한 부분만 선행 미션으로 보충할 수 있습니다.
 
-진행 순서: Mission 확인 → 용어/개념 → 환경 → 구현 → 검증 → Evidence → CLEAR.
+진행 순서: `START-CHECK.md` → Mission 확인 → 용어/개념 → 환경 → 구현 → 검증 → Evidence → CLEAR.
 
 핵심 문서:
-- BEGINNER-GUIDE.md
-- CHECKLIST.md
+- `START-CHECK.md` — Git/Web/DB/Deploy/AI API 통합 시작 전 자가진단
+- `BEGINNER-GUIDE.md`
+- `CHECKLIST.md`
+
+`START-CHECK.md`는 공식 Gate가 아니라 현재 준비 수준을 진단하고 부족한 영역만 권장 선행 미션에서 보충하기 위한 안내입니다.
 
 상세 폴더와 파일은 실제로 필요해지는 시점에만 생성합니다.
