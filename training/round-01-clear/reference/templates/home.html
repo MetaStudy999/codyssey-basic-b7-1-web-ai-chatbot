@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Home · B7-1 Chatbot{% endblock %}
+{% block content %}
+<section>
+  <h1>웹 기반 AI 챗봇 서비스</h1>
+  <p>로그인한 사용자가 질문을 입력하면 서버가 AI API를 호출하고 대화 로그를 사용자별로 저장합니다.</p>
+  {% if user %}
+    <p><a href="/chat">챗봇 시작하기</a></p>
+  {% else %}
+    <p><a href="/signup">회원가입</a> 또는 <a href="/login">로그인</a> 후 이용하세요.</p>
+  {% endif %}
+</section>
+{% endblock %}
