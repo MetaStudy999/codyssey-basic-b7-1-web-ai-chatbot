@@ -1,0 +1,4 @@
+# B7-1 — Ubuntu 24.04 mission-specific APT packages
+# FastAPI/DB/AI libraries belong in the repository-local .venv.
+python3
+python3-venv
